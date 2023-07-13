@@ -4,6 +4,8 @@ if [ "$DEBUG_MODE" == "true" ]; then
 	set -x
 fi
 
+usermod -aG docker bamboo
+
 service docker start
 service docker status
 
