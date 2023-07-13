@@ -18,6 +18,9 @@ RUN /scripts/install.all.sh
 # Configure using scripts
 RUN /scripts/config.all.sh
 
+RUN echo "bamboo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+
 # Overwrite entrypoint command to start services before bamboo agent
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod a+wrx /entrypoint.sh # Required due to permission loss on Windows
