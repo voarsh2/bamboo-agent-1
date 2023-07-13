@@ -2,19 +2,22 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: pv-bamboo-agent-di-mvn-cache
-  namespace: confluence
+  namespace: atlassian
   labels:
     app: bamboo
     type: local
 spec:
-  storageClassName: ceph-block
+  storageClassName: microk8s-hostpath
   capacity:
-    storage: 50Gi
+    storage: 750Gi
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
   claimRef:
-    namespace: confluence
+    namespace: atlassian
     name: pvc-bamboo-agent-di-mvn-cache
+  hostPath:
+    path: "/data/mvn-docker-cache"
 
 ---
 
@@ -22,13 +25,13 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pvc-bamboo-agent-di-mvn-cache
-  namespace: confluence
+  namespace: atlassian
   labels:
     app: bamboo
 spec:
-  storageClassName: ceph-block
+  storageClassName: microk8s-hostpath
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 50Gi
+      storage: 750Gi
