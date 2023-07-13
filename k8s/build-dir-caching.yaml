@@ -2,34 +2,30 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: pv-local-bamboo-agent-build-dir-cache
-  namespace: atlassian
+  namespace: confluence
   labels:
     app: bamboo
     type: local
 spec:
-  storageClassName: microk8s-hostpath
+  storageClassName: ceph-block
   capacity:
     storage: 200Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Recycle
   claimRef:
-    namespace: atlassian
+    namespace: confluence
     name: pvc-local-bamboo-agent-build-dir-cache
-  hostPath:
-    path: "/data/build-dir-cache"
-
 ---
 
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pvc-local-bamboo-agent-build-dir-cache
-  namespace: atlassian
+  namespace: confluence
   labels:
     app: bamboo
 spec:
-  storageClassName: microk8s-hostpath
+  storageClassName: ceph-block
   accessModes:
     - ReadWriteOnce
   resources:
