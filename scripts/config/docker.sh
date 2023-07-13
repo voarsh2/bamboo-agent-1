@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$DEBUG_MODE" == "true" ]; then
-	set -x
+    set -x
 fi
 
 # DOC_USERNAME=<docker_hub_username>
@@ -13,7 +13,17 @@ usermod -aG sudo $RUN_USER
 
 # Create paths for caching locations
 mkdir -p /usr/local/bamboo/docker-images  /usr/local/bamboo/.m2 \
-	&& chown -R ${RUN_USER}:${RUN_GROUP} /usr/local/bamboo
+    && chown -R ${RUN_USER}:${RUN_GROUP} /usr/local/bamboo
+
+# Create directories
+mkdir -p /var/atlassian/application-data/bamboo-agent/.docker
+
+# Copy .docker directory
+cp -R /root/.docker /var/atlassian/application-data/bamboo-agent/.docker
+
+# Set permissions
+chmod a+wr /var/atlassian/application-data/bamboo-agent/.docker
+chown -R $RUN_USER:$RUN_GROUP /var/atlassian/application-data/bamboo-agent/.docker
 
 # daemon.json configuration
 mkdir -p /etc/docker
@@ -26,7 +36,7 @@ cat <<EOT >> /etc/docker/daemon.json
       "max-size": "100m",
       "max-file": "5"
   },
-	"graph": "/usr/local/bamboo/docker-images"
+    "graph": "/usr/local/bamboo/docker-images"
 }
 EOT
 chown -R root:docker /etc/docker
