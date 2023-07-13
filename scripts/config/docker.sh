@@ -38,7 +38,7 @@ cat <<EOT >> /etc/docker/daemon.json
       "max-size": "100m",
       "max-file": "5"
   },
-    "graph": "/usr/local/bamboo/docker-images"
+  "data-root": "/usr/local/bamboo/docker-images" # Modified directive
 }
 EOT
 chown -R root:docker /etc/docker
