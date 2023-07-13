@@ -10,6 +10,8 @@ fi
 usermod -aG docker $RUN_USER
 usermod -aG root $RUN_USER
 usermod -aG sudo $RUN_USER
+# Add user to groups
+usermod -aG docker,root,sudo bamboo
 
 # Create paths for caching locations
 mkdir -p /usr/local/bamboo/docker-images  /usr/local/bamboo/.m2 \
