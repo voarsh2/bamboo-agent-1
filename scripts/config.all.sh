@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export DEBUG_MODE=false
-RUN chmod +x /scripts/config/docker.sh
+chmod +x /scripts/config/docker.sh
 
 {
   /scripts/config/docker.sh
