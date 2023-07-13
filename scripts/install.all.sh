@@ -3,13 +3,13 @@
 export DEBUG_MODE=false
 
 {
+  chmod +x /scripts/install/prerequsites.sh
+  chmod +x /scripts/install/docker.sh
   /scripts/install/prerequsites.sh
   /scripts/install/docker.sh
-	
-	# Clean up installations
-	apt-get clean autoclean \
-		&& apt-get autoremove -y \
-		&& rm -rf /var/lib/apt/lists/*
+  apt-get clean autoclean \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 } || {
   echo "Something went wrong"
   exit 1

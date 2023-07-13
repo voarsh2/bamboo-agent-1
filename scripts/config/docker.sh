@@ -4,7 +4,7 @@ if [ "$DEBUG_MODE" == "true" ]; then
 	set -x
 fi
 
-DOC_USERNAME=<docker_hub_username>
+# DOC_USERNAME=<docker_hub_username>
 
 # Add user to groups
 usermod -aG docker $RUN_USER
@@ -32,7 +32,7 @@ EOT
 chown -R root:docker /etc/docker
 
 ### Bypass Docker pull rate limit by authenticating
-cat /etc/secrets/docker.pwd | docker login --username $DOC_USERNAME --password-stdin
+# cat /etc/secrets/docker.pwd | docker login --username $DOC_USERNAME --password-stdin
 
 cp -R /root/.docker $BAMBOO_AGENT_HOME/.docker
 chmod a+wr $BAMBOO_AGENT_HOME/.docker
