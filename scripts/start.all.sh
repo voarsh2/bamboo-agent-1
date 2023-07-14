@@ -1,8 +1,10 @@
 #!/bin/bash
 
-export DEBUG_MODE=false
+export DEBUG_MODE=true
 
-sudo -S /scripts/start/docker.sh <<< "" || {
+{
+  /scripts/start/docker.sh
+} || {
   echo "Something went wrong"
   exit 1
 }
