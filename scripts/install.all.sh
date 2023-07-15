@@ -11,6 +11,6 @@ export DEBUG_MODE=false
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 } || {
-  echo "Something went wrong"
+  echo "Something went wrong - install.all (install.all)"
   exit 1
 }
