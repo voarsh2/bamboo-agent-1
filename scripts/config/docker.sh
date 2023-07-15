@@ -30,6 +30,18 @@ chown -R $RUN_USER:$RUN_GROUP /var/atlassian/application-data/bamboo-agent/.dock
 # daemon.json configuration
 mkdir -p /etc/docker
 touch /etc/docker/daemon.json
+cat <<EOT >> /etc/docker/daemon.json
+{
+  "mtu": 1200,
+  "storage-driver": "vfs",
+  "log-opts": {
+      "max-size": "100m",
+      "max-file": "5"
+  },
+  "data-root": "/usr/local/bamboo/docker-images"
+}
+EOT
+
 chown -R root:docker /etc/docker
 
 ### Bypass Docker pull rate limit by authenticating
