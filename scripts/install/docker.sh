@@ -18,5 +18,7 @@ chmod a+r /etc/apt/keyrings/docker.gpg
 apt-get update
 apt-get install -y --no-install-recommends \
   docker-ce docker-ce-cli \
-  containerd.io docker-compose-plugin \
-  --buildkit
+  containerd.io docker-compose-plugin
+
+apt-get update
+apt install docker-buildx-plugin
