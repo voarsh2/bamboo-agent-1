@@ -33,7 +33,7 @@ touch /etc/docker/daemon.json
 cat <<EOT >> /etc/docker/daemon.json
 {
   "mtu": 1200,
-  "storage-driver": "overlay2",
+  "storage-driver": "aufs",
   "log-opts": {
       "max-size": "100m",
       "max-file": "5"
