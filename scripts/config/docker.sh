@@ -34,6 +34,10 @@ cat <<EOT >> /etc/docker/daemon.json
 {
   "mtu": 1200,
   "storage-driver": "overlay2",
+  "insecure-registries" : [
+    "192.168.100.103:30009",
+    "107.181.136.199:30009"
+   ],
   "log-opts": {
       "max-size": "100m",
       "max-file": "5"
