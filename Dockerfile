@@ -10,11 +10,6 @@ USER root
 COPY secrets /etc/secrets
 RUN chmod a+wr /etc/secrets
 
-
-
-RUN echo "bamboo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-
 # Overwrite entrypoint command to start services before bamboo agent
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod a+wrx /entrypoint.sh # Required due to permission loss on Windows
@@ -40,7 +35,8 @@ COPY --from=sonars /opt/sonar-scanner ${SONAR_SCANNER_HOME}
 COPY scripts /scripts
 RUN chmod a+wrx -R /scripts/*.sh \
     && /scripts/install.all.sh \
-    && /scripts/config.all.sh
+    && /scripts/config.all.sh \
+    && echo "bamboo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 
 USER ${RUN_USER}
