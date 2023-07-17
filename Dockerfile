@@ -10,13 +10,7 @@ USER root
 COPY secrets /etc/secrets
 RUN chmod a+wr /etc/secrets
 
-### Copy scripts
-COPY scripts /scripts
-RUN chmod a+wrx -R /scripts/*.sh # Required due to permission loss on Windows
-# Install using scripts
-RUN /scripts/install.all.sh
-# Configure using scripts
-RUN /scripts/config.all.sh
+
 
 RUN echo "bamboo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
@@ -41,6 +35,14 @@ COPY --from=sonars /opt/sonar-scanner ${SONAR_SCANNER_HOME}
 #  - "Python" /usr/bin/python3
 #  - "Python 3" /usr/bin/python3
 #  - "Git"  /usr/bin/git # NOTE: not set on correct capability in the base image and cause connection issues, thus setting it here
+
+### Copy scripts
+COPY scripts /scripts
+RUN chmod a+wrx -R /scripts/*.sh \
+    && /scripts/install.all.sh \
+    && /scripts/config.all.sh
+
+
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "system.builder.mvn3.Maven 3" ${MAVEN_HOME} \
     && /bamboo-update-capability.sh "system.git.executable" /usr/bin/git \
