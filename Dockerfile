@@ -1,7 +1,7 @@
 # Atlassian bamboo agent base image is based on eclipse-temurin:11 image
 FROM sonarsource/sonar-scanner-cli:4.7 as sonars
 FROM maven:3.8.6-eclipse-temurin-11 as maven
-FROM atlassian/bamboo-agent-base:8.2.1 as ship
+FROM atlassian/bamboo-agent-base:latest as ship
 
 ##### Install and configure as ROOT
 USER root
