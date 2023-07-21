@@ -38,6 +38,18 @@ RUN chmod a+wrx -R /scripts/*.sh \
     && /scripts/config.all.sh \
     && echo "bamboo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
+# Install kubectl
+RUN apt-get update && \
+    apt-get install -y apt-transport-https gnupg2 curl && \
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
+    apt-get update && \
+    apt-get install -y kubectl
+    
+# Copy cluster credentials YAML file
+COPY cluster-credentials.yaml /home/bamboo/.kube/config
+RUN chown bamboo:bamboo /home/bamboo/.kube/config && \
+    chmod 600 /home/bamboo/.kube/config
 
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "system.builder.mvn3.Maven 3" ${MAVEN_HOME} \
