@@ -55,6 +55,10 @@ RUN chown bamboo:bamboo /home/bamboo/.kube/config && \
 RUN apt-get update && \
     apt-get install -y  zip unzip tar
 
+# Install Selenium
+RUN apt-get install -y python3-pip && \
+    pip3 install selenium
+
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "system.builder.mvn3.Maven 3" ${MAVEN_HOME} \
     && /bamboo-update-capability.sh "system.git.executable" /usr/bin/git \
