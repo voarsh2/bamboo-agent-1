@@ -2,7 +2,6 @@
 FROM sonarsource/sonar-scanner-cli:4.7 as sonars
 FROM maven:3.8.6-eclipse-temurin-11 as maven
 FROM atlassian/bamboo-agent-base:8.2.1 as ship
-FROM selenium/standalone-chrome:latest as selenium
 
 ##### Install and configure as ROOT
 USER root
@@ -55,6 +54,10 @@ RUN chown bamboo:bamboo /home/bamboo/.kube/config && \
 # Install ZIP/UNZIP/TAR
 RUN apt-get update && \
     apt-get install -y  zip unzip tar
+
+# Install Selenium
+RUN apt-get install -y python3-pip && \
+    pip3 install selenium requests
 
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "system.builder.mvn3.Maven 3" ${MAVEN_HOME} \
