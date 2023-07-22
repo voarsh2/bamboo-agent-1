@@ -55,11 +55,12 @@ RUN chown bamboo:bamboo /home/bamboo/.kube/config && \
 RUN apt-get update && \
     apt-get install -y  zip unzip tar
 
-# Set up Selenium standalone Chrome
-FROM selenium/standalone-chrome:latest as selenium
 
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "system.builder.mvn3.Maven 3" ${MAVEN_HOME} \
     && /bamboo-update-capability.sh "system.git.executable" /usr/bin/git \
     && /bamboo-update-capability.sh "Docker" /usr/bin/docker \
     && /bamboo-update-capability.sh "system.builder.sos" ${SONAR_SCANNER_HOME}
+
+# Set up Selenium standalone Chrome
+FROM selenium/standalone-chrome:latest as selenium
