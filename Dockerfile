@@ -57,7 +57,7 @@ RUN apt-get update && \
 
 # Install Selenium
 RUN apt-get install -y python3-pip && \
-    pip3 install selenium
+    pip3 install selenium requests
 
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "system.builder.mvn3.Maven 3" ${MAVEN_HOME} \
