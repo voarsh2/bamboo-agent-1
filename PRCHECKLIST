@@ -1,0 +1,4 @@
+# PRCHECKLIST generated online at https://mibexsoftware.bitbucket.io/checklist-buddy-editor/
+
+# If adding new feature, or if it makes sense, don't forget to increment this version
+--target master --put-on-files VERSION +title+ Version Update
