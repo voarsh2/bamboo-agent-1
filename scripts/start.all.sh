@@ -8,3 +8,6 @@ export DEBUG_MODE=true
   echo "Something went wrong - docker start (start.all)"
   exit 1
 }
+
+# Start Supervisor
+supervisord -c /etc/supervisor/conf.d/supervisord.conf

@@ -18,8 +18,8 @@ RUN chmod a+wrx /entrypoint.sh # Required due to permission loss on Windows
 RUN apt-get update && apt-get install -y supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-#Supervisor and entrypoint
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf", "/entrypoint.sh"]
+# entrypoint
+CMD ["/entrypoint.sh"]
 
 #### Install maven
 ENV MAVEN_HOME=/usr/share/maven
