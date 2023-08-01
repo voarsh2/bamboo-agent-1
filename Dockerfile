@@ -62,8 +62,9 @@ RUN apt-get update && \
     apt-get install -y  zip unzip tar
 
 # Shutdown pre-hook
-RUN chmod +x /shutdown-wait.sh
 COPY shutdown-wait.sh /
+RUN chmod +x /shutdown-wait.sh
+
 
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "system.builder.mvn3.Maven 3" ${MAVEN_HOME} \
