@@ -1,7 +1,6 @@
 .git
 .svn
 .idea
-node_modules
 target
 *.class
 *.jar
@@ -12,9 +11,5 @@ target
 .vscode
 .project
 .classpath
-secrets
-test
-tests
-docs
 .DS_Store
 Thumbs.db
