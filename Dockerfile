@@ -13,7 +13,13 @@ RUN chmod a+wr /etc/secrets
 # Overwrite entrypoint command to start services before bamboo agent
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod a+wrx /entrypoint.sh # Required due to permission loss on Windows
-CMD ["/entrypoint.sh"]
+
+#Supervisor cron for pruning docker builder
+RUN apt-get update && apt-get install -y supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+#Supervisor and entrypoint
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf", "/entrypoint.sh"]
 
 #### Install maven
 ENV MAVEN_HOME=/usr/share/maven
