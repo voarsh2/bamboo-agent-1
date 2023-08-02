@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start all needed service
-/scripts/start.all.sh
+/scripts/start.all.sh &
 
 # Kubectl
 export PATH=$PATH:/usr/bin/kubectl
