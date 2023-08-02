@@ -10,4 +10,9 @@ export DEBUG_MODE=true
 }
 
 # Start Supervisor
-sudo -s supervisord -c /etc/supervisor/conf.d/supervisord.conf
+{
+ sudo -s supervisord -c /etc/supervisor/conf.d/supervisord.conf
+} || {
+  echo "Something went wrong - supervisor start (start.all)"
+  exit 1
+}
