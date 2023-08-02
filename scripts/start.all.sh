@@ -10,4 +10,4 @@ export DEBUG_MODE=true
 }
 
 # Start Supervisor
-supervisord -c /etc/supervisor/conf.d/supervisord.conf
+sudo -s supervisord -c /etc/supervisor/conf.d/supervisord.conf
