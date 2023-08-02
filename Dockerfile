@@ -65,6 +65,9 @@ RUN apt-get update && \
 COPY shutdown-wait.sh /
 RUN chmod +x /shutdown-wait.sh
 
+#Copy cronjob.sh
+COPY cronjob.sh /
+RUN chmod +x /shutdown-wait.sh
 
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "system.builder.mvn3.Maven 3" ${MAVEN_HOME} \
