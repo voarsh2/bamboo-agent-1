@@ -58,6 +58,7 @@ RUN set -x \
     && tar zxvf krew-linux_amd64.tar.gz \
     && KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_amd64" \
     && "$KREW" install krew \
+    && export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" \
     && "$KREW" update
 
     
