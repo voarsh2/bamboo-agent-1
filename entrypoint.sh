@@ -8,7 +8,7 @@ export PATH=$PATH:/usr/bin/kubectl
 
 #Krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-sudo-s kubectl krew install neat
+sudo -s kubectl krew install neat
 
 
 
