@@ -61,7 +61,7 @@ RUN set -x \
     && "$KREW" update
 
 # Add krew to PATH
-ENV PATH="${PATH}:${HOME}/.krew/bin"
+ENV PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH
 # Install NEAT package
 RUN kubectl krew install neat
     
