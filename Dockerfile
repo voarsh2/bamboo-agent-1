@@ -51,6 +51,19 @@ RUN apt-get update && \
     echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
     apt-get update && \
     apt-get install -y kubectl
+# Install krew
+RUN set -x \
+    && cd "$(mktemp -d)" \
+    && curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz" \
+    && tar zxvf krew.tar.gz \
+    && KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_amd64" \
+    && "$KREW" install krew \
+    && "$KREW" update
+
+# Add krew to PATH
+ENV PATH="${PATH}:${HOME}/.krew/bin"
+# Install NEAT package
+RUN kubectl krew install neat
     
 # Copy cluster credentials YAML file
 COPY cluster-credentials.yaml /home/bamboo/.kube/config
