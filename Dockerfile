@@ -60,10 +60,6 @@ RUN set -x \
     && "$KREW" install krew \
     && "$KREW" update
 
-# Add krew to PATH
-ENV PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-# Install NEAT package
-RUN kubectl krew install neat
     
 # Copy cluster credentials YAML file
 COPY cluster-credentials.yaml /home/bamboo/.kube/config
