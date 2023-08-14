@@ -79,6 +79,15 @@ RUN chmod +x /shutdown-wait.sh
 COPY cronjob.sh /
 RUN chmod +x /cronjob.sh
 
+
+# Install MySQL client without recommended packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends mysql-client
+
+# Install MySQL dump without recommended packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends mysql-client-core
+
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
     && /bamboo-update-capability.sh "system.builder.sos" ${SONAR_SCANNER_HOME}
