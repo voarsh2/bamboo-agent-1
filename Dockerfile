@@ -18,6 +18,8 @@ RUN chmod a+wrx /entrypoint.sh # Required due to permission loss on Windows
 RUN apt-get update && apt-get install -y supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+#Gradle 
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 # entrypoint
 CMD ["/entrypoint.sh"]
 
