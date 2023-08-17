@@ -79,6 +79,16 @@ RUN chmod +x /shutdown-wait.sh
 COPY cronjob.sh /
 RUN chmod +x /cronjob.sh
 
+# Install Gradle
+RUN wget https://services.gradle.org/distributions/gradle-4.0.2-bin.zip \
+    && unzip gradle-4.0.2-bin.zip -d /opt/gradle \
+    && rm gradle-4.0.2-bin.zip
+# Android SDK
+# Install Android SDK
+RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip && \
+    unzip sdk-tools-linux-4333796.zip -d /opt/android-sdk && \
+    rm sdk-tools-linux-4333796.zip
+
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
     && /bamboo-update-capability.sh "system.builder.sos" ${SONAR_SCANNER_HOME}
