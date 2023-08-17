@@ -79,18 +79,9 @@ RUN chmod +x /shutdown-wait.sh
 COPY cronjob.sh /
 RUN chmod +x /cronjob.sh
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends software-properties-common && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8C718D3B5072E1F5 && \
-    add-apt-repository 'deb http://repo.mysql.com/apt/ubuntu/ jammy mysql-8.0' && \
-    apt-get update
 # Install MySQL client without recommended packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends mysql-client
-
-# Install MySQL dump without recommended packages
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends mysql-client-core
 
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
