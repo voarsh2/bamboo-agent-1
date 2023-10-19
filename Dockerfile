@@ -91,6 +91,8 @@ ENV GRADLE_HOME=/opt/gradle/gradle-7.4
 ENV PATH=$PATH:$GRADLE_HOME/bin
 # Android SDK
 # Install Android SDK
+# Create directory for Android SDK command-line tools
+RUN mkdir -p /opt/android-sdk/cmdline-tools
 # Download and unzip Android SDK command-line tools
 RUN wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip && \
     unzip commandlinetools-linux-10406996_latest.zip -d /opt/android-sdk/cmdline-tools && \
