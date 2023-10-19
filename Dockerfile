@@ -82,12 +82,12 @@ COPY cronjob.sh /
 RUN chmod +x /cronjob.sh
 
 # Download and unzip Gradle distribution
-RUN wget https://services.gradle.org/distributions/gradle-5.0-bin.zip && \
-    unzip gradle-5.0-bin.zip -d /opt/gradle && \
-    rm gradle-5.0-bin.zip
+RUN wget https://services.gradle.org/distributions/gradle-7.4-bin.zip && \
+    unzip gradle-7.4-bin.zip -d /opt/gradle && \
+    rm gradle-7.4-bin.zip
 
 # Set environment variables
-ENV GRADLE_HOME=/opt/gradle/gradle-5.0
+ENV GRADLE_HOME=/opt/gradle/gradle-7.4
 ENV PATH=$PATH:$GRADLE_HOME/bin
 # Android SDK
 # Install Android SDK
