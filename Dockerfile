@@ -81,10 +81,14 @@ RUN chmod +x /shutdown-wait.sh
 COPY cronjob.sh /
 RUN chmod +x /cronjob.sh
 
-# Install Gradle
-RUN wget https://services.gradle.org/distributions/gradle-4.0.2-bin.zip \
-    && unzip gradle-4.0.2-bin.zip -d /opt/gradle \
-    && rm gradle-4.0.2-bin.zip
+# Download and unzip Gradle distribution
+RUN wget https://services.gradle.org/distributions/gradle-5.0-bin.zip && \
+    unzip gradle-5.0-bin.zip -d /opt/gradle && \
+    rm gradle-5.0-bin.zip
+
+# Set environment variables
+ENV GRADLE_HOME=/opt/gradle/gradle-5.0
+ENV PATH=$PATH:$GRADLE_HOME/bin
 # Android SDK
 # Install Android SDK
 RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip && \

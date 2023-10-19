@@ -12,7 +12,7 @@ sudo -s kubectl krew install neat
 
 
 # Gradle
-export GRADLE_HOME=/opt/gradle/gradle-4.0.2
+export GRADLE_HOME=/opt/gradle/gradle-5.0
 export PATH=$PATH:$GRADLE_HOME/bin
 # Android SDK:
 export ANDROID_HOME=/opt/android-sdk
