@@ -103,6 +103,8 @@ ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 # Accept Android SDK licenses and install necessary components
 # RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses && \
 #     $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-33" "build-tools;33.0.1"
+# Set execute permissions for sdkmanager
+RUN chmod +x $ANDROID_HOME/tools/bin/sdkmanager
 
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
