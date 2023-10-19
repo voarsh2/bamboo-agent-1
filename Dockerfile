@@ -103,8 +103,6 @@ RUN wget https://services.gradle.org/distributions/gradle-7.4-bin.zip && \
 # Set environment variables
 ENV GRADLE_HOME=/opt/gradle/gradle-7.4
 ENV PATH=$PATH:$GRADLE_HOME/bin
-# Android SDK
-COPY --from=android-sdk /opt/android-sdk ${ANDROID_HOME}
 
 
 USER ${RUN_USER}
@@ -113,3 +111,6 @@ RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
 # RUN /bamboo-update-capability.sh "system.builder.mvn3.Maven 3" ${MAVEN_HOME} \
     # && /bamboo-update-capability.sh "system.git.executable" /usr/bin/git \
     # && /bamboo-update-capability.sh "Docker" /usr/bin/docker \
+
+# Android SDK
+COPY --from=android-sdk /opt/android-sdk ${ANDROID_HOME}
