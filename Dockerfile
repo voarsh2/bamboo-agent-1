@@ -106,11 +106,6 @@ ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 # Set execute permissions for sdkmanager
 RUN chmod +x $ANDROID_HOME/tools/bin/sdkmanager
 
-# Install JAXB API
-RUN apt-get update && \
-    apt-get install -y openjdk-8-jdk && \
-    apt-get clean
-
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
     && /bamboo-update-capability.sh "system.builder.sos" ${SONAR_SCANNER_HOME}
