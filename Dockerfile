@@ -95,6 +95,15 @@ RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip &&
     unzip sdk-tools-linux-4333796.zip -d /opt/android-sdk && \
     rm sdk-tools-linux-4333796.zip
 
+
+# Set Android SDK environment variables
+ENV ANDROID_HOME=/opt/android-sdk
+ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+# Accept Android SDK licenses and install necessary components
+RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses && \
+    $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-33" "build-tools;33.0.1"
+
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
     && /bamboo-update-capability.sh "system.builder.sos" ${SONAR_SCANNER_HOME}
