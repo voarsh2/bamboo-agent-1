@@ -1,5 +1,6 @@
 # Use a Java 17 image to download and license the Android SDK command-line tools
 FROM openjdk:17-slim as android-sdk
+RUN apt-get update && apt-get install -y wget unzip
 ENV ANDROID_HOME=/opt/android-sdk
 ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
 RUN mkdir -p /opt/android-sdk/cmdline-tools
