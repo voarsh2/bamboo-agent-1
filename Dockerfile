@@ -91,20 +91,20 @@ ENV GRADLE_HOME=/opt/gradle/gradle-7.4
 ENV PATH=$PATH:$GRADLE_HOME/bin
 # Android SDK
 # Install Android SDK
-RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip && \
-    unzip sdk-tools-linux-4333796.zip -d /opt/android-sdk && \
-    rm sdk-tools-linux-4333796.zip
+# Download and unzip Android SDK command-line tools
+RUN wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip && \
+    unzip commandlinetools-linux-10406996_latest.zip -d /opt/android-sdk/cmdline-tools && \
+    rm commandlinetools-linux-10406996_latest.zip
 
 
 # Set Android SDK environment variables
 ENV ANDROID_HOME=/opt/android-sdk
-ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
 
+RUN chmod +x $ANDROID_HOME/cmdline-tools/latest/bin
 # Accept Android SDK licenses and install necessary components
-# RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses && \
-#     $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-33" "build-tools;33.0.1"
-# Set execute permissions for sdkmanager
-RUN chmod +x $ANDROID_HOME/tools/bin/sdkmanager
+RUN yes | sdkmanager --licenses && \
+    sdkmanager "platforms;android-33" "build-tools;33.0.1"
 
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
