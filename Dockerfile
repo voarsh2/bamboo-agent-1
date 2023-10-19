@@ -95,7 +95,9 @@ ENV PATH=$PATH:$GRADLE_HOME/bin
 RUN mkdir -p /opt/android-sdk/cmdline-tools
 # Download and unzip Android SDK command-line tools
 RUN wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip && \
-    unzip commandlinetools-linux-10406996_latest.zip -d /opt/android-sdk/cmdline-tools && \
+    unzip commandlinetools-linux-10406996_latest.zip -d /opt/android-sdk/cmdline-tools/tmp && \
+    mv /opt/android-sdk/cmdline-tools/tmp/* /opt/android-sdk/cmdline-tools/latest && \
+    rm -r /opt/android-sdk/cmdline-tools/tmp && \
     rm commandlinetools-linux-10406996_latest.zip
 
 
