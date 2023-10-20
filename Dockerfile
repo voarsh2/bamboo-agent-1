@@ -18,6 +18,7 @@ FROM sonarsource/sonar-scanner-cli:4.7 as sonars
 # FROM maven:3.8.6-eclipse-temurin-11 as maven
 FROM atlassian/bamboo-agent-base:9.2 as ship
 # Android SDK
+RUN mkdir -p /opt/android-sdk
 COPY --from=android-sdk /opt/android-sdk ${ANDROID_HOME}
 ##### Install and configure as ROOT
 USER root
