@@ -17,7 +17,8 @@ RUN yes | sdkmanager --licenses && \
 FROM sonarsource/sonar-scanner-cli:4.7 as sonars
 # FROM maven:3.8.6-eclipse-temurin-11 as maven
 FROM atlassian/bamboo-agent-base:9.2 as ship
-
+# Android SDK
+COPY --from=android-sdk /opt/android-sdk ${ANDROID_HOME}
 ##### Install and configure as ROOT
 USER root
 
@@ -113,5 +114,3 @@ RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
     # && /bamboo-update-capability.sh "system.git.executable" /usr/bin/git \
     # && /bamboo-update-capability.sh "Docker" /usr/bin/docker \
 
-# Android SDK
-COPY --from=android-sdk /opt/android-sdk ${ANDROID_HOME}
