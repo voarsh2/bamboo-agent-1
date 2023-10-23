@@ -1,3 +1,4 @@
+FROM bobswiftapps/acli:latest
 # Use a Java 17 image to download and license the Android SDK command-line tools
 FROM openjdk:17-slim as android-sdk
 RUN apt-get update && apt-get install -y wget unzip
@@ -35,6 +36,9 @@ RUN chmod a+wrx /entrypoint.sh # Required due to permission loss on Windows
 RUN apt-get update && apt-get install -y supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+#ACLI Docker
+ENV ACLI_HOME=/opt/acli
+ENV PATH="${ACLI_HOME}:${PATH}"
 #Gradle 
 ENV JAVA_HOME=/opt/java/openjdk
 # entrypoint
