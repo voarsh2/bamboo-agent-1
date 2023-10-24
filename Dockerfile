@@ -1,25 +1,9 @@
-# Use a Java 17 image to download and license the Android SDK command-line tools
-FROM openjdk:17-slim as android-sdk
-RUN apt-get update && apt-get install -y wget unzip
-ENV ANDROID_HOME=/opt/android-sdk
-ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
-RUN mkdir -p /opt/android-sdk/cmdline-tools
-RUN wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip && \
-    unzip commandlinetools-linux-10406996_latest.zip -d /opt/android-sdk/cmdline-tools/tmp && \
-    mv /opt/android-sdk/cmdline-tools/tmp/* /opt/android-sdk/cmdline-tools/latest && \
-    rm -r /opt/android-sdk/cmdline-tools/tmp && \
-    rm commandlinetools-linux-10406996_latest.zip
-RUN yes | sdkmanager --licenses && \
-    sdkmanager "platforms;android-33" "build-tools;33.0.1"
-
-
 # Atlassian bamboo agent base image is based on eclipse-temurin:11 image
 FROM sonarsource/sonar-scanner-cli:4.7 as sonars
 # FROM maven:3.8.6-eclipse-temurin-11 as maven
 FROM atlassian/bamboo-agent-base:9.2 as ship
 # Android SDK
 RUN mkdir -p /opt/android-sdk
-COPY --from=android-sdk /opt/android-sdk ${ANDROID_HOME}
 ##### Install and configure as ROOT
 USER root
 
