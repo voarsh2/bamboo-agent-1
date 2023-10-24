@@ -82,6 +82,11 @@ RUN chmod +x /shutdown-wait.sh
 COPY cronjob.sh /
 RUN chmod +x /cronjob.sh
 
+# Install MySQL client without recommended packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends mysql-client
+
+
 # Download and unzip Gradle distribution
 RUN wget https://services.gradle.org/distributions/gradle-7.4-bin.zip && \
     unzip gradle-7.4-bin.zip -d /opt/gradle && \
