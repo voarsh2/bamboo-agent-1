@@ -2,7 +2,8 @@
 FROM sonarsource/sonar-scanner-cli:4.7 as sonars
 # FROM maven:3.8.6-eclipse-temurin-11 as maven
 FROM atlassian/bamboo-agent-base:9.2 as ship
-
+# Android SDK
+RUN mkdir -p /opt/android-sdk
 ##### Install and configure as ROOT
 USER root
 
@@ -18,6 +19,8 @@ RUN chmod a+wrx /entrypoint.sh # Required due to permission loss on Windows
 RUN apt-get update && apt-get install -y supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+#Gradle 
+ENV JAVA_HOME=/opt/java/openjdk
 # entrypoint
 CMD ["/entrypoint.sh"]
 
@@ -83,9 +86,21 @@ RUN chmod +x /cronjob.sh
 RUN apt-get update && \
     apt-get install -y --no-install-recommends mysql-client
 
+
+# Download and unzip Gradle distribution
+RUN wget https://services.gradle.org/distributions/gradle-7.4-bin.zip && \
+    unzip gradle-7.4-bin.zip -d /opt/gradle && \
+    rm gradle-7.4-bin.zip
+
+# Set environment variables
+ENV GRADLE_HOME=/opt/gradle/gradle-7.4
+ENV PATH=$PATH:$GRADLE_HOME/bin
+
+
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
     && /bamboo-update-capability.sh "system.builder.sos" ${SONAR_SCANNER_HOME}
 # RUN /bamboo-update-capability.sh "system.builder.mvn3.Maven 3" ${MAVEN_HOME} \
     # && /bamboo-update-capability.sh "system.git.executable" /usr/bin/git \
     # && /bamboo-update-capability.sh "Docker" /usr/bin/docker \
+
