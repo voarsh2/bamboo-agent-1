@@ -1,4 +1,7 @@
 FROM bobswiftapps/acli:latest
+# Copy ACLI tool to desired location
+COPY --from=bobswiftapps/acli:latest /opt/acli /opt/acli
+
 # Use a Java 17 image to download and license the Android SDK command-line tools
 FROM openjdk:17-slim as android-sdk
 RUN apt-get update && apt-get install -y wget unzip
