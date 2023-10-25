@@ -107,6 +107,10 @@ RUN wget https://services.gradle.org/distributions/gradle-7.4-bin.zip && \
 ENV GRADLE_HOME=/opt/gradle/gradle-7.4
 ENV PATH=$PATH:$GRADLE_HOME/bin
 
+
+
+USER ${RUN_USER}
+
 # Download the ACLI installer
 RUN wget -O acli-installer.run https://appfire.atlassian.net/wiki/download/attachments/60562669/ACLI-11.1.0-amd64-installer.run?api=v2
 
@@ -116,10 +120,9 @@ RUN chmod +x acli-installer.run
 # Run the installer
 RUN ./acli-installer.run --mode unattended
 #ACLI Docker
-ENV ACLI_HOME=/root/ACLI/acli
+ENV ACLI_HOME=/bamboo/ACLI/acli
 ENV PATH="${ACLI_HOME}:${PATH}"
 
-USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
     && /bamboo-update-capability.sh "system.builder.sos" ${SONAR_SCANNER_HOME}
 # RUN /bamboo-update-capability.sh "system.builder.mvn3.Maven 3" ${MAVEN_HOME} \
