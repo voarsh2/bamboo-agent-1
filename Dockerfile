@@ -1,9 +1,3 @@
-FROM bobswiftapps/acli:latest
-# Create the destination directory
-RUN mkdir -p /opt/acli
-# Copy ACLI tool to desired location
-COPY --from=bobswiftapps/acli:latest /opt/acli /opt/acli
-
 # Use a Java 17 image to download and license the Android SDK command-line tools
 FROM openjdk:17-slim as android-sdk
 RUN apt-get update && apt-get install -y wget unzip
@@ -95,9 +89,9 @@ COPY cluster-credentials.yaml /home/bamboo/.kube/config
 RUN chown bamboo:bamboo /home/bamboo/.kube/config && \
     chmod 600 /home/bamboo/.kube/config
 
-# Install ZIP/UNZIP/TAR
+# Install ZIP/UNZIP/TAR/WGET
 RUN apt-get update && \
-    apt-get install -y  zip unzip tar
+    apt-get install -y  zip unzip tar wget
 
 # Shutdown pre-hook
 COPY shutdown-wait.sh /
@@ -116,6 +110,14 @@ RUN wget https://services.gradle.org/distributions/gradle-7.4-bin.zip && \
 ENV GRADLE_HOME=/opt/gradle/gradle-7.4
 ENV PATH=$PATH:$GRADLE_HOME/bin
 
+# Download the ACLI installer
+RUN wget -O acli-installer.run https://appfire.atlassian.net/wiki/download/attachments/60562669/ACLI-11.1.0-amd64-installer.run?api=v2
+
+# Make the installer executable
+RUN chmod +x acli-installer.run
+
+# Run the installer
+RUN ./acli-installer.run --mode unattended
 
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
