@@ -35,9 +35,6 @@ RUN chmod a+wrx /entrypoint.sh # Required due to permission loss on Windows
 RUN apt-get update && apt-get install -y supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-#ACLI Docker
-ENV ACLI_HOME=/opt/acli
-ENV PATH="${ACLI_HOME}:${PATH}"
 #Gradle 
 ENV JAVA_HOME=/opt/java/openjdk
 # entrypoint
@@ -118,6 +115,9 @@ RUN chmod +x acli-installer.run
 
 # Run the installer
 RUN ./acli-installer.run --mode unattended
+#ACLI Docker
+ENV ACLI_HOME=/root/ACLI/acli
+ENV PATH="${ACLI_HOME}:${PATH}"
 
 USER ${RUN_USER}
 RUN /bamboo-update-capability.sh "Docker" /usr/bin/docker \
