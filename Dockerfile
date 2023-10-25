@@ -1,4 +1,6 @@
 FROM bobswiftapps/acli:latest
+# Create the destination directory
+RUN mkdir -p /opt/acli
 # Copy ACLI tool to desired location
 COPY --from=bobswiftapps/acli:latest /opt/acli /opt/acli
 
